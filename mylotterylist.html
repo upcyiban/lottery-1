@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>易班-我的抽奖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index.css" type="text/css">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body bgcolor="	#DCDCDC">
+<div align="center">
+    <p class="button3">我创建的抽奖</p></div>
+<div id="myholding">
+    <table id="prizelist"></table>
+</div>
+</body>
+<script>
+    $(document).ready(function () {
+        //绘制单个div
+        function setDiv(item) {
+            console.log(item)
+            var div = '<div class="kuang1"  data-i="'
+                + item.id + ' '
+                + ' "><div class="listpicleft"><div class="listgiftleft"><p class="font-center"><p class="font-center">'
+                + item.lotteryname
+                + '</p></div></div></div></div>'
+            return div
+        }
+        //绘制获奖表
+        function setlistTable(item) {
+            var table = '<table width="90%" border="0" id="prizelist">'
+                + item.lotteryintro
+                + '<tr><th noWrap>易班ID</th><th>姓名</th><th>奖项名称</th></tr><tr><th>'
+                + item.yibanid
+                + '</th><th>'
+                + item.yibanname
+                + '</th><th>'
+                + item.prizeName
+                + '</th></tr></table>'
+            return table
+        }
+
+        // 展示我创建的抽奖
+        $.get("http://yb.upc.edu.cn:8084/lottery/user/pass",
+            {
+                Authorization: localStorage.getItem("testtoken")
+            },
+            function (data) {
+                var html = ''
+                for (var i = 0; i < data.object.length; i++) {
+                    html += setDiv(data.object[i])
+                    var kuang_id = $(this).attr('data-i')
+                }
+                document.getElementById("myholding").innerHTML = html
+            }
+        );
+        $('div#myholding').click(function (e) {
+            console.log("ggg")
+            $("table#prizelist").toggle(500);
+            // var kuang_id = $(this).attr('data-i')
+            $.post("http://yb.upc.edu.cn:8084/lottery/prizeList",
+                {
+                    Authorization: localStorage.getItem("testtoken"),
+                    lotteryId: kuang_id
+                },
+                function (data) {
+                    console.log("ggg")
+                    var table = ''
+                    for (var i = 0; i < data[i]; i++) {
+                        table += setlistTable(data[i])
+                    }
+                    document.getElementById("prizelist").innerHTML = table
+                }
+            )
+        })
+
+    })
+
+</script>
+</html>

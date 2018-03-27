@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>易抽奖-新建抽奖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index.css" type="text/css">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body bgcolor="	#DCDCDC">
+<div align="center">
+    <p class="button3">新建抽奖</p>
+    <span class="font-new">创建人：</span>
+    <span class="font-new" id="yibanname"></span><br>
+    <span class="font-new">ID：</span>
+    <span class="font" id="yibanid">ID：</span>
+</div>
+<form>
+    <p class="font2">活动名称:</p>
+    <div align="center">
+        <input type="text" class="input" id="lotteryname"/>
+        <p class="font2">活动描述:</p>
+        <input type="text" class="input" id="lotteryintro" placeholder="包含活动时间地点"/>
+        <p class="font2">开始时间:</p>
+        <input class="input" type="datetime-local" name="lotterytime"/>
+        <p class="font2">结束时间:</p>
+        <input class="input" type="datetime-local" name="lotterytime"/>
+    </div>
+</form>
+<p class="font">奖项设定：</p>
+<p class="font2">说明：奖项可不填满;中奖率不可填0和负数，确保中奖率之和小于等于一千。</p>
+<div align="center">
+    <table width="90%" border="0">
+        <tr>
+            <th noWrap>奖项名称</th>
+            <th>奖品名称</th>
+            <th>数量(个）</th>
+            <th noWrap>中奖率(‰)</th>
+        </tr>
+        <tr>
+            <th>一等奖</th>
+            <th><input class="input" type="text" id="onename"/></th>
+            <th><input class="input" type="number" id="onenumber"/></th>
+            <th><input class="input" type="number" id="oneprobability"></th>
+        </tr>
+        <tr>
+            <th>二等奖</th>
+            <th><input class="input" type="text" id="twoname"></th>
+            <th><input class="input" type="number" id="twonumber"></th>
+            <th><input class="input" type="number" id="twoprobability"></th>
+
+        </tr>
+        <tr>
+            <th>三等奖</th>
+            <th><input class="input" type="text" id="threename"></th>
+            <th><input class="input" type="number" id="threenumber"></th>
+            <th><input class="input" type="number" id="threeprobability"></th>
+        </tr>
+        <tr>
+            <th>四等奖</th>
+            <th><input class="input" type="text" id="fourname"></th>
+            <th><input class="input" type="number" id="fournumber"></th>
+            <th><input class="input" type="number" id="fourprobability"></th>
+        </tr>
+        <tr>
+            <th>五等奖</th>
+            <th><input class="input" type="text" id="fivename"></th>
+            <th><input class="input" type="number" id="fivenumber"></th>
+            <th><input class="input" type="number" id="fiveprobability"></th>
+        </tr>
+    </table>
+</div>
+<br>
+<div align="center">
+    <button type="button" class="button2"/>
+    提交</button></div>
+<script>
+    $(document).ready(function () {
+        //展示用户信息
+        $.post("http://yb.upc.edu.cn:8084/lottery/userInfo",
+            {
+                Authorization: localStorage.getItem("testtoken")
+            },
+            function (data) {
+                username = data.object.yibanname
+                localStorage.setItem("username", username)
+                document.getElementById("yibanname").innerHTML = data.object.yibanname
+                document.getElementById("yibanid").innerHTML = data.object.yibanid
+            }
+        )
+        $("button").click(function () {
+            //转换开始时间类型
+            var str = document.getElementsByName('lotterytime')[0].value;
+            console.log(str)
+            var strArray = str.split('T');
+            var strDate = strArray[0].split('-');
+            var strTime = strArray[1].split(":");
+            var date1 = new Date(strDate[0], (strDate[1] - parseInt(1)), strDate[2], strTime[0], strTime[1]);
+            console.log(date1)
+            //转换结束时间类型
+            var str2 = document.getElementsByName('lotterytime')[1].value;
+            var strArray2 = str.split('T');
+            var strDate2 = strArray2[0].split('-');
+            var strTime2 = strArray2[1].split(":");
+            var date2 = new Date(strDate2[0], (strDate2[1] - parseInt(1)), strDate2[2], strTime2[0], strTime2[1]);
+            //奖项转数组
+//            var prize = [
+//                    ["0", "一等奖", "document.getElementById('onename').value", "document.getElementById('oneprobability').value" , "document.getElementById('onenumber').value"]
+//                    ["0", "二等奖", "document.getElementById('twoname').value", "document.getElementById('twoprobability').value" ,  "document.getElementById('twonumber').value"]
+//                    ["0", "三等奖", "document.getElementById('threename').value", "document.getElementById('threeprobability').value" ,  "document.getElementById('threenumber').value"]
+//                    ["0", "四等奖", "document.getElementById('fourname').value", "document.getElementById('fourprobability').value", "document.getElementById('fournumber').value"]
+//                    ["0", "五等奖", "document.getElementById('fivename').value", "document.getElementById('fiveprobability').value", "document.getElementById('fivenumber').value"]
+//            ]
+            prizes = [
+                {
+                    id:0,
+                    creatorId:0,
+                    "prizeName": "一等奖",
+                    "prizeIntro": "document.getElementById('onename').value",
+                    "prizePercentage": "document.getElementById('oneprobability').value",
+                    "totalNumber": "document.getElementById('onenumber').value",
+                    "lotteryid": 0,
+                }
+                ,
+                {
+                    id:0,
+                    creatorId:0,
+                    "prizeName": "二等奖",
+                    "prizeIntro": "document.getElementById('twoname').value",
+                    "prizePercentage": "document.getElementById('twoprobability').value",
+                    "totalNumber": "document.getElementById('twonumber').value",
+                    "lotteryid": 0,
+                },
+                {
+                    id:0,
+                    creatorId:0,
+                    "prizeName": "三等奖",
+                    "prizeIntro": "document.getElementById('threename').value",
+                    "prizePercentage": "document.getElementById('threeprobability').value",
+                    "totalNumber": "document.getElementById('threenumber').value",
+                    "lotteryid": 0,
+                },
+                {
+                    id:0,
+                    creatorId:0,
+                    "prizeIntro": "document.getElementById('fourname').value",
+                    "prizeName": "四等奖",
+                    "prizePercentage": "document.getElementById('fourprobability').value",
+                    "totalNumber": "document.getElementById('fournumber').value",
+                    "lotteryid": 0,
+                },
+                {
+                    id:0,
+                    creatorId:0,
+                    "prizeName": "五等奖",
+                    "prizeIntro": "document.getElementById('fivename').value",
+                    "prizePercentage": "document.getElementById('fiveprobability').value",
+                    "totalNumber": "document.getElementById('fivenumber').value",
+                    "lotteryid": 0,
+                }
+
+            ]
+            //传抽奖信息
+           $.ajax({
+               url: "http://yb.upc.edu.cn:8084/lottery/create",
+               type: "POST",
+               datType: "JSON",
+               contentType: "application/json",
+               data: {
+                   'Authorization': localStorage.getItem("testtoken"),
+                   'username': localStorage.getItem("username"),
+                   'lotteryname': document.getElementById('lotteryname').value,
+                   'lotteryintro': document.getElementById('lotteryintro').value,
+                   'lotterytimebegin': date1,
+                   'lotterytimeend': date2,
+                   'prizes': prizes
+               },
+               async: true,
+               success: function (data) {
+                   console.log(data)
+                   var passcode = data.code;
+                   var lotteryId = data.object;
+                   window.open("newsuccess.html?code=" + passcode + "&id="+lotteryId+"")
+               }
+           });
+
+
+//            $.post("http://yb.upc.edu.cn:8084/lottery/create",
+//                {
+//                    Authorization: localStorage.getItem("testtoken"),
+//                    username: localStorage.getItem("username"),
+//                    //活动名称
+//                    lotteryname: document.getElementById('lotteryname').value,
+//                    //活动描述
+//                    lotteryintro: document.getElementById('lotteryintro').value,
+//                    //开始时间
+//                    timeStart: date1,
+//                    //结束时间
+//                    timeEnd: date2,
+//                    //奖项清单
+//                    Prizes: prizes
+//                },
+//                function (data) {
+//                    console.log(data)
+//                    var passcode = data.obeject.passcode
+//                    window.open("newsuccess.html?code=" + passcode + "")
+//                }
+//            );
+
+        })
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+.inputbox {
+
+    position: relative;
+    width: 200px;
+}
+
+.returnbegin {
+    position: absolute;
+    paddingleft: 0;
+    z-index: 5;
+    background-image: url(箭头左.svg);
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    width: 35px;
+    height: 35px;
+
+}
+
+.button1 {
+    vertical-align: bottom;
+    outline: none;
+    width: 60px;
+    line-height: 26px;
+    text-align: center;
+    font-size: 17px;
+    color: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #5bc0de;
+    background-color: #5bc0de;
+
+}
+
+.button2 {
+    outline: none;
+    width: 160px;
+    line-height: 33px;
+    text-align: center;
+    font-size: 18px;
+    color: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #5bc0de;
+    background-color: #5bc0de;
+    box-shadow: 0px 0px 2px 2px #FAF0E6;
+}
+
+.button3 {
+    outline: none;
+    width: 160px;
+    line-height: 33px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    border-radius: 6px;
+    border: 1px solid white;
+    background-color: white;
+}
+
+.button4 {
+    outline: none;
+    position: absolute;
+    left: 20%;
+    width: 60px;
+    line-height: 28px;
+    text-align: center;
+    font-size: 18px;
+    color: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #5bc0de;
+    background-color: #5bc0de;
+    box-shadow: 0px 0px 2px 2px #FAF0E6;
+}
+
+.button5 {
+    outline: none;
+    position: absolute;
+    left: 60%;
+    width: 60px;
+    line-height: 28px;
+    text-align: center;
+    font-size: 18px;
+    color: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #5bc0de;
+    background-color: #5bc0de;
+    box-shadow: 0px 0px 2px 2px #FAF0E6;
+}
+
+.button6 {
+    outline: none;
+    position: absolute;
+    left: 30%;
+    width: 120px;
+    line-height: 28px;
+    text-align: center;
+    font-size: 18px;
+    color: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #5bc0de;
+    background-color: #5bc0de;
+    box-shadow: 0px 0px 2px 2px #FAF0E6;
+}
+
+.input{
+    vertical-align: top;
+    width: 65%;
+    border: 1px solid #ccc;
+    padding: 7px 0px;
+    border-radius: 3px;
+    padding-left: 5px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+}
+
+.input2 {
+    position: absolute;
+    left: 15%;
+    width: 70%;
+    border: 1px solid #ccc;
+    padding: 7px 0px;
+    border-radius: 3px;
+    padding-left: 5px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    ition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+}
+
+.imgleft {
+    background: url(文件夹.svg) no-repeat left center;
+    background-size: 25px 25px;
+    padding-left: 5px;
+}
+
+.picleft {
+    background: url(礼物.svg) no-repeat left center;
+    background-size: 21px 21px;
+    padding-left: 5px;
+}
+.listpicleft {
+    background: url(箭头右.svg) no-repeat left center;
+    background-size: 15px 15px;
+    padding-left: 20px;
+}
+.listgiftleft {
+    background: url(礼物.svg) no-repeat left center;
+    background-size: 21px 21px;
+    padding-left: 5px;
+}
+.picright {
+    background: url(箭头右.svg) no-repeat right center;
+    background-size: 15px 15px;
+}
+
+.font-center {
+    font-size: 15px;
+    padding-left: 25px;
+}
+
+.kuang1 {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid #C0C0C0;
+    border-radius: 2px;
+}
+.font {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+.font-lotterylist {
+    font-size: 15px;
+    font-weight: bold;
+
+}
+.font-new {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.font2 {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.font3 {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/*页面全灰*/
+.theme-popover-mask {
+    z-index: 9998;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.8;
+    filter: alpha(opacity=40);
+    display: none;
+}
+
+.theme-popover-shenhui {
+    z-index: 9998;
+    position: fixed;
+    top: 85px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    opacity: 0.8;
+    filter: alpha(opacity=40);
+    display: none
+}
+
+/*输密码*/
+.theme-popover {
+    z-index: 9999;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: -220px;
+    width: 300px;
+    height: 250px;
+    margin: 0 auto;
+    border-radius: 5px;
+    border: solid 1px #666;
+    background-color: #fff;
+    display: none;
+    box-shadow: 0 0 10px #666;
+}
+
+.theme-poptit {
+    border-bottom: 1px solid #ddd;
+    padding: 7px;
+    position: relative;
+}
+
+
+/*二维码弹出*/
+.theme-qrcode {
+    z-index: 9999;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 200px;
+    width: 300px;
+    height: 250px;
+    margin: 0 auto;
+    border-radius: 5px;
+    border: solid 1px #666;
+    background-color: #fff;
+    display: none;
+    box-shadow: 0 0 10px #666;
+}
+.theme-qrcode .close {
+    float: right;
+    color: #999;
+    padding: 5px;
+    margin: -2px -5px -5px;
+    font: bold 14px/14px simsun;
+    text-shadow: 0 1px 0 #ddd
+}
+
+/*抽奖*/
+.theme-popover2 {
+    z-index: 9999;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: -220px;
+    width: 300px;
+    height: 250px;
+    margin: 0 auto;
+    border-radius: 5px;
+    border: solid 1px #666;
+    background-color: #fff;
+    display: none;
+    box-shadow: 0 0 10px #666;
+}
+
+.theme-poptit2 {
+    border-bottom: 1px solid #ddd;
+    padding: 7px;
+    position: relative;
+}
+
+.theme-poptit .close2 {
+    float: right;
+    color: #999;
+    padding: 5px;
+    margin: -2px -5px -5px;
+    font: bold 14px/14px simsun;
+    text-shadow: 0 1px 0 #ddd
+}
