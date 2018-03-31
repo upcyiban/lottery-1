@@ -32,9 +32,9 @@
     <div class="theme-popover2">
         <div class="theme-poptit2">
             <p class="font">抽奖结果为：</p>
-        </div>
+        </div><br>
         <div>
-            <p class="font" id="lottryresult"></p><br><br>
+            <p class="font" id="lotteryresult"></p><br><br>
             <button class="button6" onclick="window.open('begin.html')">返回主页</button>
         </div>
     </div>
@@ -59,67 +59,69 @@
             function (data) {
                 document.getElementById("lotteryname").innerHTML = data.object.lotteryname
             })
+
+        //关闭框
+        function guan() {
+            $('.theme-popover-mask').fadeOut(100);
+            $('.theme-popover').slideUp(200);
+        }
+
+        //判断抽奖码是否正确
+        $("button#yes").click(function () {
+            $.post("http://yb.upc.edu.cn:8084/lottery/ispass",
+                {
+                    Authorization: localStorage.getItem("testtoken"),
+                    lotteryId: getid,
+                    passcode: document.getElementById('passcode').value
+                },
+                function (data) {
+                    if (data.code == 1) {
+                        guan()
+                    }
+                    //不正确时展示重新输入
+                    else {
+                        $('p#again').text("输入错误!请再次输入:")
+                        $('input#passcode').val("");
+                    }
+                })
+        })
+        //旋转图片
+        var deg = 0;
+        document.getElementById("angle").onclick = function () {
+            deg += 145;
+            document.getElementById("img").style.transform = "rotate(" + deg + "deg)";
+            doLottery()
+        }
+
+        //抽奖按钮弹出框展示奖品
+        function doLottery() {
+            $('.theme-popover-mask').fadeIn(100);
+            $('.theme-popover2').slideDown(200);
+
+            $.get("http://yb.upc.edu.cn:8084/lottery/dolottery",
+                {
+                    Authorization: localStorage.getItem("testtoken"),
+                    lotteryId: getid
+                },
+                function (data) {
+                    console.log(document.getElementById("lotteryresult"))
+                    message = data.msg
+                    if (data.code == -1) {
+                        document.getElementById("lotteryresult").innerHTML = message
+                    }
+                    else if (data.code == 0)
+                        document.getElementById("lotteryresult").innerHTML = "抽奖出错，请稍候再来~"
+                    else if (data.code == -2)
+                        document.getElementById("lotteryresult").innerHTML = message
+                    else
+                        document.getElementById("lotteryresult").innerHTML = "恭喜你获得:<br>" + data.object.prizeName
+                }
+            )
+        }
     })
 
 
-    //关闭框
-    function guan() {
-        $('.theme-popover-mask').fadeOut(100);
-        $('.theme-popover').slideUp(200);
-    }
 
-    //判断抽奖码是否正确
-    $("button#yes").click(function () {
-        $.post("http://yb.upc.edu.cn:8084/lottery/ispass",
-            {
-                Authorization: localStorage.getItem("testtoken"),
-                lotteryId: getid,
-                passcode: document.getElementById('passcode').value
-            },
-            function (data) {
-                if (data.code == 1) {
-                    guan()
-                }
-                //不正确时展示重新输入
-                else {
-                    $('p#again').text("输入错误!请再次输入:")
-                    $('input#passcode').val("");
-                }
-            })
-    })
-    //旋转图片
-    var deg = 0;
-    document.getElementById("angle").onclick = function () {
-        deg += 145;
-        document.getElementById("img").style.transform = "rotate(" + deg + "deg)";
-        doLottery()
-    }
-
-    //抽奖按钮弹出框展示奖品
-    function doLottery() {
-        $('.theme-popover-mask').fadeIn(100);
-        $('.theme-popover2').slideDown(200);
-
-        $.get("http://yb.upc.edu.cn:8084/lottery/dolottery",
-            {
-                Authorization: localStorage.getItem("testtoken"),
-                lotteryId: getid
-            },
-            function (data) {
-                console.log(data)
-                message = data.msg
-                if (data.code == -1) {
-                    document.getElementById("lotteryresult").innerHTML = message
-                }
-                else if (data.code == 0)
-                    document.getElementById("lotteryresult").innerHTML = "抽奖出错，请稍候再来~"
-                else if (data.code == -2)
-                    document.getElementById("lotteryresult").innerHTML = message
-                else
-                    document.getElementById("lotteryresult").innerHTML = "恭喜你获得:<br>" + data.object.prizeName
-            }
-        )
-    }
 </script>
 </html>
 

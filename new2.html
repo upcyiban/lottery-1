@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>易抽奖-新建抽奖2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="index.css" type="text/css">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 visible-xs-*"></div>
+        <div class="col-lg-6" style="background-color:#DCDCDC"><br>
+            <div align="center">
+                <p class="button3">新建抽奖</p>
+            </div>
+            <p class="font">奖项设定：</p>
+            <p class="font2">说明：奖项可不填满;中奖率不可填0和负数，确保中奖率之和小于等于一千。</p>
+            <div align="center">
+                <table width="90%" border="0px">
+                    <tr>
+                        <th noWrap>奖项名称</th>
+                        <th>奖品名称</th>
+                        <th>数量(个）</th>
+                        <th noWrap>中奖率(‰)</th>
+                    </tr>
+                    <tr>
+                        <th>一等奖</th>
+                        <th><input class="input" type="text" id="onename"/></th>
+                        <th><input class="input" type="number" id="onenumber"/></th>
+                        <th><input class="input" type="number" id="oneprobability"></th>
+                    </tr>
+                    <tr>
+                        <th>二等奖</th>
+                        <th><input class="input" type="text" id="twoname"></th>
+                        <th><input class="input" type="number" id="twonumber"></th>
+                        <th><input class="input" type="number" id="twoprobability"></th>
+
+                    </tr>
+                    <tr>
+                        <th>三等奖</th>
+                        <th><input class="input" type="text" id="threename"></th>
+                        <th><input class="input" type="number" id="threenumber"></th>
+                        <th><input class="input" type="number" id="threeprobability"></th>
+                    </tr>
+                    <tr>
+                        <th>四等奖</th>
+                        <th><input class="input" type="text" id="fourname"></th>
+                        <th><input class="input" type="number" id="fournumber"></th>
+                        <th><input class="input" type="number" id="fourprobability"></th>
+                    </tr>
+                    <tr>
+                        <th>五等奖</th>
+                        <th><input class="input" type="text" id="fivename"></th>
+                        <th><input class="input" type="number" id="fivenumber"></th>
+                        <th><input class="input" type="number" id="fiveprobability"></th>
+                    </tr>
+                </table>
+            </div>
+            <br><br><br><br>
+            <div align="center">
+                <button type="button" class="button2"/>
+                提交</button><br><br><br><br></div></div>
+            <div class="col-lg-3 visible-xs-*"></div>
+
+    </div>
+</div>
+</body>
+<script>
+    var passcode = 0;
+    var creatorId = 0;
+    var lotteryId = 0;
+    $(document).ready(function () {
+        function getUrlVal(para) {
+            var search = location.search; //页面URL的查询部分字符串
+            var arrPara = new Array(); //参数数组。数组单项为包含参数名和参数值的字符串，如“para=value”
+            var arrVal = new Array(); //参数值数组。用于存储查找到的参数值
+
+            if (search != "") {
+                var index = 0;
+                search = search.substr(1); //去除开头的“?”
+                arrPara = search.split("&");
+
+                for (i in arrPara) {
+                    var paraPre = para + "="; //参数前缀。即参数名+“=”，如“para=”
+                    if (arrPara[i].indexOf(paraPre) == 0 && paraPre.length < arrPara[i].length) {
+                        arrVal[index] = decodeURI(arrPara[i].substr(paraPre.length)); //顺带URI解码避免出现乱码
+                        index++;
+                    }
+                }
+            }
+
+            if (arrVal.length == 1) {
+                return arrVal[0];
+            } else if (arrVal.length == 0) {
+                return null;
+            } else {
+                return arrVal;
+            }
+        }
+
+        var url = window.location.search;
+        var passcode = getUrlVal("passcode");
+        var creatorId = getUrlVal("creatorId");
+        var lotteryId = getUrlVal("lotteryId");
+
+    })
+
+    $("button").click(function () {
+        //传抽奖信息
+
+        $.post("http://yb.upc.edu.cn:8084/lottery/createPrizes",
+            {
+                Authorization: localStorage.getItem("testtoken"),
+                prizeName: "一等奖",
+                prizeIntro: document.getElementById('onename').value,
+                prizePercentage: document.getElementById('oneprobability').value,
+                prizeTotalNumber: document.getElementById('onenumber').value,
+                creatorId: creatorId,
+                lotteryId: lotteryId
+            },
+            function (data) {
+                console.log(data)
+                window.open("newsuccess.html?code=" + passcode + "")
+            }
+        );
+        $.post("http://yb.upc.edu.cn:8084/lottery/createPrizes",
+            {
+                Authorization: localStorage.getItem("testtoken"),
+                prizeName: "二等奖",
+                prizeIntro: document.getElementById('twoname').value,
+                prizePercentage: document.getElementById('twoprobability').value,
+                prizeTotalNumber: document.getElementById('twonumber').value,
+                creatorId: creatorId,
+                lotteryId: lotteryId
+            },
+            function (data) {
+                console.log(data)
+            }
+        );
+        $.post("http://yb.upc.edu.cn:8084/lottery/createPrizes",
+            {
+                Authorization: localStorage.getItem("testtoken"),
+                prizeName: "三等奖",
+                prizeIntro: document.getElementById('threename').value,
+                prizePercentage: document.getElementById('threeprobability').value,
+                prizeTotalNumber: document.getElementById('threenumber').value,
+                creatorId: creatorId,
+                lotteryId: lotteryId
+            },
+            function (data) {
+                console.log(data)
+            }
+        );
+        $.post("http://yb.upc.edu.cn:8084/lottery/createPrizes",
+            {
+                Authorization: localStorage.getItem("testtoken"),
+                prizeName: "四等奖",
+                prizeIntro: document.getElementById('fourname').value,
+                prizePercentage: document.getElementById('fourprobability').value,
+                prizeTotalNumber: document.getElementById('fournumber').value,
+                creatorId: creatorId,
+                lotteryId: lotteryId
+            },
+            function (data) {
+                console.log(data)
+            }
+        );
+        $.post("http://yb.upc.edu.cn:8084/lottery/createPrizes",
+            {
+                Authorization: localStorage.getItem("testtoken"),
+                prizeName: "五等奖",
+                prizeIntro: document.getElementById('fivename').value,
+                prizePercentage: document.getElementById('fiveprobability').value,
+                prizeTotalNumber: document.getElementById('fivenumber').value,
+                creatorId: creatorId,
+                lotteryId: lotteryId
+            },
+            function (data) {
+                console.log(data)
+            }
+        );
+
+    })
+</script>
+</body>
+</html>

@@ -1,27 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>易班-新建成功</title>
+    <meta charset="utf-8">
+    <title>易抽奖-新建成功</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="index.css" type="text/css">
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-    <script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/55/sjckzedf/jquery-1.8.0.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
 </head>
-<body bgcolor="#DCDCDC">
-<div align="center">
-    <p class="font">已生成抽奖，您的活动邀请码为：</p>
-    <p class="font3" id="passcode"></p>
-    <p class="font">可通过邀请码搜索到该抽奖</p>
-    <p class="font">分享活动邀请码开始抽奖吧！</p>
-    <img src="timg.png" width="200px"  height="200px" style="position:center;">
-    <br><br>
-    <button  class="button2"  id="share">分享给小伙伴</button>
-</div>
-<div class="theme-popover-mask">
-    <div class="theme-qrcode">
-        <div class="theme-poptit .close " id="close">x</div>
-    <div align="center"><img id="pic" src="礼物.svg" height="200px" width="200px" ></div>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 visible-xs-*"></div>
+        <div class="col-lg-6" style="background-color:#DCDCDC"><br>
+            <div align="center">
+                <p class="font">已生成抽奖，您的活动邀请码为：</p>
+                <p class="font3" id="passcode"></p>
+                <p class="font">可通过邀请码搜索到该抽奖</p>
+                <p class="font">分享活动邀请码开始抽奖吧！</p>
+                <img src="timg.png" width="200px" height="200px" style="position:center;">
+                <br><br>
+                <button class="button2" id="share">分享给小伙伴</button>
+                <br><br><br><br>
+            </div>
+            <div class="theme-popover-mask">
+                <div class="theme-qrcode">
+                    <img src="取消.svg" width="15px" height="15px" class="theme-poptit .close " id="close">
+                    <div align="center"><img id="pic" src="礼物.svg" height="200px" width="200px"><br></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 visible-xs-*"></div>
     </div>
 </div>
 </body>
@@ -33,14 +43,13 @@
         // var pass2 = pass.split('&')[1];
         // var code = pass1.split('=')[1];
         // var Id = pass2.split('=')[1];
-        var code=123456;
-        var Id=2;
+        var code = 123456;
+        var Id = 2;
         document.getElementById('passcode').innerHTML = code;
         $("button").click(function () {
             $('.theme-popover-mask').fadeIn(100);
             $('.theme-qrcode').slideDown(200);
-            $("div#close").click(function () {
-                console.log("ggg")
+            $("img#close").click(function () {
                 $(".theme-qrcode").fadeOut(200)
                 $(".theme-popover-mask").fadeOut(200)
             })
@@ -50,8 +59,8 @@
                     lotteryId: Id,
                 },
                 function (data) {
-                console.log(data.object)
-                document.getElementById("pic").src=data.object;
+                    console.log(data.object)
+                    document.getElementById("pic").src = data.object;
                 }
             )
         })
