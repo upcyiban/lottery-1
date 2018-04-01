@@ -26,8 +26,8 @@
             </div>
             <div class="theme-popover-mask">
                 <div class="theme-qrcode">
-                    <img src="取消.svg" width="15px" height="15px" class="theme-poptit .close " id="close">
-                    <div align="center"><img id="pic" src="礼物.svg" height="200px" width="200px"><br></div>
+                    <img src="取消.svg" width="25px" height="25px"  id="close">
+                    <div align="center"><img id="pic" src="礼物.svg" height="200px" width="200px" ></div>
                 </div>
             </div>
         </div>
@@ -36,16 +36,44 @@
 </div>
 </body>
 <script>
+    var passcode=0;
+    var lotteryId=0;
     jQuery(document).ready(function () {
         var url = window.location.search;
-        // var pass = window.location.href.split('?')[1];
-        // var pass1 = pass.split('&')[0];
-        // var pass2 = pass.split('&')[1];
-        // var code = pass1.split('=')[1];
-        // var Id = pass2.split('=')[1];
-        var code = 123456;
-        var Id = 2;
-        document.getElementById('passcode').innerHTML = code;
+        function getUrlVal(para) {
+            var search = location.search; //页面URL的查询部分字符串
+            var arrPara = new Array(); //参数数组。数组单项为包含参数名和参数值的字符串，如“para=value”
+            var arrVal = new Array(); //参数值数组。用于存储查找到的参数值
+
+            if (search != "") {
+                var index = 0;
+                search = search.substr(1); //去除开头的“?”
+                arrPara = search.split("&");
+
+                for (i in arrPara) {
+                    var paraPre = para + "="; //参数前缀。即参数名+“=”，如“para=”
+                    if (arrPara[i].indexOf(paraPre) == 0 && paraPre.length < arrPara[i].length) {
+                        arrVal[index] = decodeURI(arrPara[i].substr(paraPre.length)); //顺带URI解码避免出现乱码
+                        index++;
+                    }
+                }
+            }
+
+            if (arrVal.length == 1) {
+                return arrVal[0];
+            } else if (arrVal.length == 0) {
+                return null;
+            } else {
+                return arrVal;
+            }
+        }
+        var url = window.location.search;
+         passcode = getUrlVal("code");
+        document.getElementById('passcode').innerHTML = passcode;
+        lotteryId = getUrlVal("lotteryId");
+
+    })
+
         $("button").click(function () {
             $('.theme-popover-mask').fadeIn(100);
             $('.theme-qrcode').slideDown(200);
@@ -56,7 +84,7 @@
             $.get("http://yb.upc.edu.cn:8084/lottery/share",
                 {
                     Authorization: localStorage.getItem("testtoken"),
-                    lotteryId: Id,
+                    lotteryId: lotteryId,
                 },
                 function (data) {
                     console.log(data.object)
@@ -64,6 +92,5 @@
                 }
             )
         })
-    })
 </script>
 </html>

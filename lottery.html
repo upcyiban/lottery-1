@@ -1,46 +1,57 @@
 <!DOCTYPE html>
 <head>
-    <meta charset=utf-8"/>
-    <title>易班-易抽奖</title>
+    <meta charset="utf-8">
+    <title>易抽奖-抽奖</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="index.css" type="text/css">
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
 </head>
-<body bgcolor="#DCDCDC">
-<p class="font">活动名称</p>
-<div align="center">
-    <p class="button3" id="lotteryname"></p>
-    <img src="timg.png" width="200px" ; height="200px" ; style="position:center; " id="img"/> <br><br>
-    <button id="angle" class="button2 theme-benginlottery" onclick="doLottery()">抽奖</button>
-    <br><br>
-    <button class="button2">分享给小伙伴</button>
-</div>
-<!-- 初始页面展示 -->
-<div class="theme-popover">
-    <div class="theme-poptit">
-        <p class="font" id="again">请输入您的活动邀请码:</p>
-    </div>
-    <br>
-    <div align="center">
-        <input class="input2" type="number" id="passcode"/><br><br><br><br>
-        <button class="button4 " id="yes">确定</button>
-        <button class="button5" onclick="window.open('begin.html')">返回</button>
-    </div>
-</div>
-<!-- 抽奖结果 -->
-<div class="theme-benginlottery">
-    <div class="theme-popover2">
-        <div class="theme-poptit2">
-            <p class="font">抽奖结果为：</p>
-        </div><br>
-        <div>
-            <p class="font" id="lotteryresult"></p><br><br>
-            <button class="button6" onclick="window.open('begin.html')">返回主页</button>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 visible-xs-*"></div>
+        <div class="col-lg-6" style="background-color:#DCDCDC"><br>
+            <p class="font">活动名称</p>
+            <div align="center">
+                <p class="button3" id="lotteryname"></p>
+                <img src="timg.png" width="200px" ; height="200px" ; style="position:center; " id="img"/> <br><br>
+                <button id="angle" class="button2 theme-benginlottery" onclick="doLottery()">抽奖</button>
+                <br><br>
+                <button class="button2">分享给小伙伴</button><br><br><br><br>
+            </div>
+            <!-- 初始页面展示 -->
+            <div class="theme-popover">
+                <div class="theme-poptit"><br>
+                    <p class="font" id="again">请输入您的活动邀请码:</p>
+                </div>
+                <br>
+                <div align="center">
+                    <input class="input2" type="number" id="passcode"/><br><br><br><br>
+                    <button class="button4 " id="yes">确定</button>
+                    <button class="button5" onclick="window.open('begin.html')">返回</button>
+                </div>
+            </div>
+            <!-- 抽奖结果 -->
+            <div class="theme-benginlottery">
+                <div class="theme-popover2">
+                    <div class="theme-poptit2"><br>
+                        <p class="font">抽奖结果为：</p>
+                    </div>
+                    <br>
+                    <div>
+                        <p class="font" id="lotteryresult"></p><br><br>
+                        <button class="button6" onclick="window.open('begin.html')">返回主页</button>
+                    </div>
+                </div>
+            </div>
+            <!--页面灰色-->
+            <div class="theme-popover-mask"></div>
         </div>
+        <div class="col-lg-3 visible-xs-*"></div>
     </div>
 </div>
-<!--页面灰色-->
-<div class="theme-popover-mask"></div>
 </body>
 <script>
     var url = window.location.search;
@@ -119,7 +130,6 @@
             )
         }
     })
-
 
 
 </script>

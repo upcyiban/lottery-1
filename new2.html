@@ -18,7 +18,8 @@
                 <p class="button3">新建抽奖</p>
             </div>
             <p class="font">奖项设定：</p>
-            <p class="font2">说明：奖项可不填满;中奖率不可填0和负数，确保中奖率之和小于等于一千。</p>
+            <p class="font2">说明：奖项若为空填写0，不可空缺；</p>
+                <p class="font2">中奖率不可填0和负数，确保中奖率之和小于等于一千。</p><br>
             <div align="center">
                 <table width="90%" border="0px">
                     <tr>
@@ -30,33 +31,33 @@
                     <tr>
                         <th>一等奖</th>
                         <th><input class="input" type="text" id="onename"/></th>
-                        <th><input class="input" type="number" id="onenumber"/></th>
-                        <th><input class="input" type="number" id="oneprobability"></th>
+                        <th><input class="input" type="number" id="onenumber" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'/></th>
+                        <th><input class="input" type="number" id="oneprobability" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
                     </tr>
                     <tr>
                         <th>二等奖</th>
                         <th><input class="input" type="text" id="twoname"></th>
-                        <th><input class="input" type="number" id="twonumber"></th>
-                        <th><input class="input" type="number" id="twoprobability"></th>
+                        <th><input class="input" type="number" id="twonumber" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
+                        <th><input class="input" type="number" id="twoprobability" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
 
                     </tr>
                     <tr>
                         <th>三等奖</th>
                         <th><input class="input" type="text" id="threename"></th>
-                        <th><input class="input" type="number" id="threenumber"></th>
-                        <th><input class="input" type="number" id="threeprobability"></th>
+                        <th><input class="input" type="number" id="threenumber" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
+                        <th><input class="input" type="number" id="threeprobability" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
                     </tr>
                     <tr>
                         <th>四等奖</th>
                         <th><input class="input" type="text" id="fourname"></th>
-                        <th><input class="input" type="number" id="fournumber"></th>
-                        <th><input class="input" type="number" id="fourprobability"></th>
+                        <th><input class="input" type="number" id="fournumber" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
+                        <th><input class="input" type="number" id="fourprobability" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
                     </tr>
                     <tr>
                         <th>五等奖</th>
                         <th><input class="input" type="text" id="fivename"></th>
-                        <th><input class="input" type="number" id="fivenumber"></th>
-                        <th><input class="input" type="number" id="fiveprobability"></th>
+                        <th><input class="input" type="number" id="fivenumber" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
+                        <th><input class="input" type="number" id="fiveprobability" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
                     </tr>
                 </table>
             </div>
@@ -103,10 +104,9 @@
         }
 
         var url = window.location.search;
-        var passcode = getUrlVal("passcode");
-        var creatorId = getUrlVal("creatorId");
-        var lotteryId = getUrlVal("lotteryId");
-
+         passcode = getUrlVal("passcode");
+         creatorId = getUrlVal("creatorId");
+         lotteryId = getUrlVal("lotteryId");
     })
 
     $("button").click(function () {
@@ -124,7 +124,7 @@
             },
             function (data) {
                 console.log(data)
-                window.open("newsuccess.html?code=" + passcode + "")
+                window.open("newsuccess.html?code=" + passcode + "&lotteryId="+ lotteryId+"")
             }
         );
         $.post("http://yb.upc.edu.cn:8084/lottery/createPrizes",

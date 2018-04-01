@@ -54,36 +54,8 @@
 </body>
 <script>
     $(document).ready(function () {
-        //绘制单个div
-        function setDiv(item) {
-            var div = '<div class="kuang1"  data-i="'
-                + item.id + ' '
-                + ' "><div class="listpicleft"><div class="listgiftleft"><p class="font-center"><p class="font-center">'
-                + item.lotteryname
-                + '</p></div></div>'
-                + '</div>'
-            return div
-        }
+        var kuang_id = 0;
 
-        // 展示我创建的抽奖
-        $.get("http://yb.upc.edu.cn:8084/lottery/user/pass",
-            {
-                Authorization: localStorage.getItem("testtoken")
-            },
-            function (data) {
-                var html = ''
-                for (var i = 0; i < data.object.length; i++) {
-                    html += setDiv(data.object[i])
-                }
-                document.getElementById("myHolding").innerHTML = html
-
-                $('.kuang1').click(function () {
-                    console.log($(this).attr('data-i'))
-                    kuang_id = $(this).attr('data-i')
-                    $('.detail').toggle(100);
-                })
-            }
-        );
         //绘制详细获奖信息
         function setList(item) {
             var html = '<div id="list"><p class="font-new">活动名称: '
@@ -175,7 +147,35 @@
             }
         )
 
+        //绘制单个div
+        function setDiv(item) {
+            var div = '<div class="kuang1"  data-i="'
+                + item.id + ' '
+                + ' "><div class="listpicleft"><div class="listgiftleft"><p class="font-center"><p class="font-center">'
+                + item.lotteryname
+                + '</p></div></div></div>'
+            return div
+        }
 
+        // 展示我创建的抽奖
+        $.get("http://yb.upc.edu.cn:8084/lottery/user/pass",
+            {
+                Authorization: localStorage.getItem("testtoken")
+            },
+            function (data) {
+                var html = ''
+                for (var i = 0; i < data.object.length; i++) {
+                    html += setDiv(data.object[i])
+                }
+                document.getElementById("myHolding").innerHTML = html
+
+                $('.kuang1').click(function () {
+                    console.log($(this).attr('data-i'))
+                    kuang_id = $(this).attr('data-i')
+                    $('.detail').toggle(100);
+                })
+            }
+        );
 
 
     })
