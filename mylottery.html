@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>易抽奖-我的抽奖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="index.css" type="text/css">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 visible-xs-*"></div>
+        <div class=" box col-lg-6 " style="background-color:#DCDCDC;"><br>
+            <div align="center">
+                <p class="button3" id="lotteryname"></p>
+
+                <p id="lotteryintro"></p>
+                <p id="lotterytimebegin"></p>
+                <p id="lotterytimeend"></p></div>
+            <div align="center">
+                <p class="font-new">我设置的抽奖清单</p>
+                <table width="90%" border="1px">
+                    <tr>
+                        <th width="25%">奖项名称</th>
+                        <th width="25%">奖品名称</th>
+                        <th width="25%">数量</th>
+                        <th width="25%">中奖率‰</th>
+                    </tr>
+                </table>
+                <div id="lotteryList"></div>
+                <br><br>
+            </div>
+            <div align="center"><p class="font-new">获奖情况清单</p>
+                <table width="90%" border="1px">
+                    <tr>
+                        <th width="25%">易班ID</th>
+                        <th width="25%">姓名</th>
+                        <th width="25%">奖项名称</th>
+                        <th width="25%">奖品名称</th>
+                    </tr>
+                </table>
+                <div id="prizeList"></div>
+            </div>
+            <br><br>
+        </div>
+        <br><br><br><br>
+        <div class="col-lg-3 visible-xs-*"></div>
+    </div>
+</div>
+</body>
+<script>
+
+    $(document).ready(function () {
+        function getUrlVal(para) {
+            var search = location.search; //页面URL的查询部分字符串
+            var arrPara = new Array(); //参数数组。数组单项为包含参数名和参数值的字符串，如“para=value”
+            var arrVal = new Array(); //参数值数组。用于存储查找到的参数值
+
+            if (search != "") {
+                var index = 0;
+                search = search.substr(1); //去除开头的“?”
+                arrPara = search.split("&");
+
+                for (i in arrPara) {
+                    var paraPre = para + "="; //参数前缀。即参数名+“=”，如“para=”
+                    if (arrPara[i].indexOf(paraPre) == 0 && paraPre.length < arrPara[i].length) {
+                        arrVal[index] = decodeURI(arrPara[i].substr(paraPre.length)); //顺带URI解码避免出现乱码
+                        index++;
+                    }
+                }
+            }
+
+            if (arrVal.length == 1) {
+                return arrVal[0];
+            } else if (arrVal.length == 0) {
+                return null;
+            } else {
+                return arrVal;
+            }
+        }
+
+        var lotteryId = getUrlVal("id");
+
+        Date.prototype.Format = function (fmt) {
+            var o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "h+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt))
+                fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o){
+                if (new RegExp("(" + k + ")").test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                }
+            }
+            return fmt;
+        }
+        //展示抽奖详情
+        $.post("http://yb.upc.edu.cn:8084/lottery/findone",
+            {
+                Authorization: localStorage.getItem("testtoken"),
+                lotteryId: lotteryId
+            },
+            function (data) {
+                console.log("find")
+                console.log(data)
+                document.getElementById("lotteryname").innerHTML = data.object.lotteryname;
+                document.getElementById("lotteryintro").innerHTML = data.object.lotteryintro;
+                var lotteryTimeBegin = new Date(data.object.lotterytimebegin).Format("yyyy-MM-dd hh:mm");
+                var lotteryTimeEnd = new Date(data.object.lotterytimeend).Format("yyyy-MM-dd hh:mm");
+                document.getElementById("lotterytimebegin").innerHTML = lotteryTimeBegin;
+                document.getElementById("lotterytimeend").innerHTML = lotteryTimeEnd
+            })
+
+
+        //绘制我设置的奖项
+        function setLotteryList(item) {
+            var div = '<table width="90%" border="1px"><tr><td width="25%">'
+                + item.prizeName
+                + '</td><td width="25%">'
+                + item.prizeIntro
+                + '</td><td width="25%">'
+                + item.totalNumber
+                + '</td><td width="25%">'
+                + item.prizePercentage
+                + '</td></tr></table>'
+            return div
+        }
+
+        //展示我设置的抽奖
+        $.post("http://yb.upc.edu.cn:8084/lottery/prizes",
+            {
+                Authorization: localStorage.getItem("testtoken"),
+                lotteryId: lotteryId,
+            },
+            function (data) {
+                console.log("my")
+                console.log(data)
+                var html3 = ''
+                for (var i = 0; i < data.object.length; i++) {
+                    html3 += setLotteryList(data.object[i])
+                }
+                document.getElementById("lotteryList").innerHTML = html3
+            }
+        )
+
+        //绘制获奖
+        function setprizeList(item) {
+            var div = '<table width="90%" border="1px"><tr><td width="25%">'
+                + item.yibanid
+                + '</td><td width="25%">'
+                + item.yibanname
+                + '</td><td width="25%">'
+                + item.prizeStage
+                + '</td><td width="25%">'
+                + item.prizeName
+                + '</td></tr></table>'
+            return div
+        }
+
+        //展示获奖
+        $.post("http://yb.upc.edu.cn:8084/lottery/prizeList",
+            {
+                Authorization: localStorage.getItem("testtoken"),
+                lotteryId: lotteryId,
+            },
+            function (data) {
+                console.log("bieren")
+                console.log(data)
+                var html4 = ''
+                for (var i = 0; i < data.object.length; i++) {
+                    html4 += setprizeList(data.object[i])
+                }
+                document.getElementById("prizeList").innerHTML = html4
+            }
+        )
+
+
+    })
+</script>
+</html>

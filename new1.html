@@ -71,8 +71,6 @@
             var strDate2 = strArray2[0].split('-');
             var strTime2 = strArray2[1].split(":");
             var date2 = strDate2[0] + "-" + strDate2[1] + "-" + strDate2[2] + " " + strTime2[0] + ":" + strTime2[1] + ":00";
-//            var date2 = new Date(strDate2[0], (strDate2[1] - parseInt(1)), strDate2[2], strTime2[0], strTime2[1]);
-            //传抽奖信息
             $.post("http://yb.upc.edu.cn:8084/lottery/createLottery",
                 {
                     Authorization: localStorage.getItem("testtoken"),

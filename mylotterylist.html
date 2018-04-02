@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>易抽奖-我的抽奖</title>
@@ -18,47 +18,21 @@
             <div align="center">
                 <p class="button3">我创建的抽奖</p></div>
             <div id="myHolding"></div>
-            <div class="detail">
-                <div id="list"></div>
-                <div align="center">
-                    <p class="font-new">我设置的抽奖清单</p>
-                    <table width="90%" border="1px">
-                        <tr>
-                            <th width="25%">奖项名称</th>
-                            <th width="25%">奖品名称</th>
-                            <th width="25%">数量</th>
-                            <th width="25%">中奖率‰</th>
-                        </tr>
-                    </table>
-                    <div id="lotteryList"></div>
-                    <br><br>
-                </div>
-                <div align="center"><p class="font-new">获奖情况清单</p>
-                    <table width="90%" border="1px">
-                        <tr>
-                            <th width="25%">易班ID</th>
-                            <th width="25%">姓名</th>
-                            <th width="25%">奖项名称</th>
-                            <th width="25%">奖品名称</th>
-                        </tr>
-                    </table>
-                    <div id="prizeList"></div>
-                </div>
-                <br><br>
-            </div>
             <br><br><br><br>
+            <div class="col-lg-3 visible-xs-*"></div>
         </div>
-        <div class="col-lg-3 visible-xs-*"></div>
     </div>
 </div>
 </body>
 <script>
     $(document).ready(function () {
+        var kuang_id = 0;
+
         //绘制单个div
         function setDiv(item) {
             var div = '<div class="kuang1"  data-i="'
                 + item.id + ' '
-                + ' "><div class="listpicleft"><div class="listgiftleft"><p class="font-center"><p class="font-center">'
+                + ' "><div class="listpicright"><div class="listgiftleft"><p class="font-center"><p class="font-center">'
                 + item.lotteryname
                 + '</p></div></div>'
                 + '</div>'
@@ -78,106 +52,12 @@
                 document.getElementById("myHolding").innerHTML = html
 
                 $('.kuang1').click(function () {
-                    console.log($(this).attr('data-i'))
                     kuang_id = $(this).attr('data-i')
-                    $('.detail').toggle(100);
+                    console.log(kuang_id)
+                    window.open("mylottery.html?id=" + kuang_id + "")
                 })
             }
         );
-        //绘制详细获奖信息
-        function setList(item) {
-            var html = '<div id="list"><p class="font-new">活动名称: '
-                + item.lotteryname
-                + '</p><p class="font-new">活动详情: '
-                + item.lotteryintro
-                + '</p><p class="font-new">开始时间: '
-                + item.lotterytimebegin
-                + '</p><p class="font-new">结束时间: '
-                + item.lotterytimeend
-                + '</p></div>'
-            return html
-        }
-
-        //展示抽奖详情
-        $.get("http://yb.upc.edu.cn:8084/lottery/user/pass",
-            {
-                Authorization: localStorage.getItem("testtoken")
-            },
-            function (data) {
-                var html2 = ''
-                for (var i = 0; i < data.object.length; i++) {
-                    html2 += setList(data.object[i])
-                }
-                document.getElementById("list").innerHTML = html2
-            }
-        );
-
-
-        //绘制我设置的奖项
-        function setLotteryList(item) {
-            var div = '<table width="90%" border="1px"><tr><td width="25%">'
-                + item.prizeName
-                + '</td><td width="25%">'
-                + item.prizeIntro
-                + '</td><td width="25%">'
-                + item.totalNumber
-                + '</td><td width="25%">'
-                + item.prizePercentage
-                + '</td></tr></table>'
-            return div
-        }
-
-        //展示我设置的抽奖
-        $.post("http://yb.upc.edu.cn:8084/lottery/prizes",
-            {
-                Authorization: localStorage.getItem("testtoken"),
-                lotteryId: 16
-            },
-            function (data) {
-                console.log("my")
-                console.log(data)
-                var html3 = ''
-                for (var i = 0; i < data.object.length; i++) {
-                    html3 += setLotteryList(data.object[i])
-                }
-                document.getElementById("lotteryList").innerHTML = html3
-            }
-        )
-
-        //绘制获奖
-        function setprizeList(item) {
-            var div = '<table width="90%" border="1px"><tr><td width="25%">'
-                + item.yibanid
-                + '</td><td width="25%">'
-                + item.yibanname
-                + '</td><td width="25%">'
-                + item.prizeStage
-                + '</td><td width="25%">'
-                + item.prizeName
-                + '</td></tr></table>'
-            return div
-        }
-
-        //展示获奖
-        $.post("http://yb.upc.edu.cn:8084/lottery/prizeList",
-            {
-                Authorization: localStorage.getItem("testtoken"),
-                lotteryId: 16
-            },
-            function (data) {
-                console.log("bieren")
-                console.log(data)
-                var html4 = ''
-                for (var i = 0; i < data.object.length; i++) {
-                    html4 += setprizeList(data.object[i])
-                }
-                document.getElementById("prizeList").innerHTML = html4
-            }
-        )
-
-
-
-
     })
 </script>
 </html>

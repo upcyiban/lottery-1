@@ -19,7 +19,7 @@
                 <p class="font3" id="passcode"></p>
                 <p class="font">可通过邀请码搜索到该抽奖</p>
                 <p class="font">分享活动邀请码开始抽奖吧！</p>
-                <img src="timg.png" width="200px" height="200px" style="position:center;">
+                <img src="./images/timg.png" width="200px" height="200px" style="position:center;">
                 <br><br>
                 <button class="button2" id="share">分享给小伙伴</button>
                 <br><br><br><br>
@@ -39,7 +39,6 @@
     var passcode=0;
     var lotteryId=0;
     jQuery(document).ready(function () {
-        var url = window.location.search;
         function getUrlVal(para) {
             var search = location.search; //页面URL的查询部分字符串
             var arrPara = new Array(); //参数数组。数组单项为包含参数名和参数值的字符串，如“para=value”

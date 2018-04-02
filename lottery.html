@@ -16,7 +16,7 @@
             <p class="font">活动名称</p>
             <div align="center">
                 <p class="button3" id="lotteryname"></p>
-                <img src="timg.png" width="200px" ; height="200px" ; style="position:center; " id="img"/> <br><br>
+                <img src="./images/timg.png" width="200px" ; height="200px" ; style="position:center; " id="img"/> <br><br>
                 <button id="angle" class="button2 theme-benginlottery" onclick="doLottery()">抽奖</button>
                 <br><br>
                 <button class="button2">分享给小伙伴</button><br><br><br><br>
@@ -54,9 +54,7 @@
 </div>
 </body>
 <script>
-    var url = window.location.search;
     var getid = window.location.href.split('=')[1];
-    var lotteryname;
     $(document).ready(function () {
         //初始页面展示
         $('.theme-popover-mask').fadeIn(100);

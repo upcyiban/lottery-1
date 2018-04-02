@@ -127,28 +127,28 @@
 }
 
 .imgleft {
-    background: url(文件夹.svg) no-repeat left center;
+    background: url(./images/文件夹.svg) no-repeat left center;
     background-size: 27px 27px;
     padding-left: 5px;
 }
 
 .picleft {
-    background: url(礼物.svg) no-repeat left center;
+    background: url(./images/礼物.svg) no-repeat left center;
     background-size: 25px 25px;
     padding-left: 5px;
 }
-.listpicleft {
-    background: url(箭头右.svg) no-repeat left center;
+.listpicright {
+    background: url(./images/箭头右.svg) no-repeat right center;
     background-size: 15px 15px;
-    padding-left: 20px;
+
 }
 .listgiftleft {
-    background: url(礼物.svg) no-repeat left center;
-    background-size: 21px 21px;
+    background: url(./images/礼物.svg) no-repeat left center;
+    background-size: 25px 25px;
     padding-left: 5px;
 }
 .picright {
-    background: url(箭头右.svg) no-repeat right center;
+    background: url(./images/箭头右.svg) no-repeat right center;
     background-size: 15px 15px;
 }
 
