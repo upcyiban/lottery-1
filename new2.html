@@ -18,8 +18,8 @@
                 <p class="button3">新建抽奖</p>
             </div>
             <p class="font">奖项设定：</p>
-            <p class="font2">说明：奖项若为空填写0，不可空缺；</p>
-                <p class="font2">中奖率不可填0和负数，确保中奖率之和小于等于一千。</p><br>
+            <p class="font2">说明：奖项可不填满</p>
+            <p class="font2">中奖率不可填0和负数，确保中奖率之和小于等于一千</p><br>
             <div align="center">
                 <table width="90%" border="0px">
                     <tr>
@@ -31,41 +31,52 @@
                     <tr>
                         <th>一等奖</th>
                         <th><input class="input" type="text" id="onename"/></th>
-                        <th><input class="input" type="number" id="onenumber" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'/></th>
-                        <th><input class="input" type="number" id="oneprobability" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
+                        <th><input class="input" type="number" id="onenumber"
+                                   onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'/></th>
+                        <th><input class="input" type="number" id="oneprobability"
+                                   onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
                     </tr>
                     <tr>
                         <th>二等奖</th>
                         <th><input class="input" type="text" id="twoname"></th>
-                        <th><input class="input" type="number" id="twonumber" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
-                        <th><input class="input" type="number" id="twoprobability" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
+                        <th><input class="input" type="number" id="twonumber"
+                                   onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
+                        <th><input class="input" type="number" id="twoprobability"
+                                   onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
 
                     </tr>
                     <tr>
                         <th>三等奖</th>
                         <th><input class="input" type="text" id="threename"></th>
-                        <th><input class="input" type="number" id="threenumber" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
-                        <th><input class="input" type="number" id="threeprobability" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
+                        <th><input class="input" type="number" id="threenumber"
+                                   onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
+                        <th><input class="input" type="number" id="threeprobability"
+                                   onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
                     </tr>
                     <tr>
                         <th>四等奖</th>
                         <th><input class="input" type="text" id="fourname"></th>
-                        <th><input class="input" type="number" id="fournumber" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
-                        <th><input class="input" type="number" id="fourprobability" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
+                        <th><input class="input" type="number" id="fournumber"
+                                   onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
+                        <th><input class="input" type="number" id="fourprobability"
+                                   onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
                     </tr>
                     <tr>
                         <th>五等奖</th>
                         <th><input class="input" type="text" id="fivename"></th>
-                        <th><input class="input" type="number" id="fivenumber" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
-                        <th><input class="input" type="number" id="fiveprobability" onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
+                        <th><input class="input" type="number" id="fivenumber"
+                                   onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
+                        <th><input class="input" type="number" id="fiveprobability"
+                                   onkeypress='return( /[\d]/.test(String.fromCharCode(event.keyCode)))'></th>
                     </tr>
                 </table>
             </div>
             <br><br><br><br>
             <div align="center">
                 <button type="button" class="button2"/>
-                提交</button><br><br><br><br></div></div>
-            <div class="col-lg-3 visible-xs-*"></div>
+                提交</button><br><br><br><br></div>
+        </div>
+        <div class="col-lg-3 visible-xs-*"></div>
 
     </div>
 </div>
@@ -74,6 +85,19 @@
     var passcode = 0;
     var creatorId = 0;
     var lotteryId = 0;
+    var oneName = '', twoName = '', threeName = '', fourName = '', fiveName = '';
+    var onePer = 0, twoPre = 0, threePre = 0, fourPre = 0, fivePre = 0;
+    var oneNum = 0, twoNum = 0, threeNum = 0, fourNum = 0, fiveNum = 0;
+    if (document.getElementById(onename) == null)
+        oneName = 0, onePer = 0, oneNum = 0;
+    if (document.getElementById(twoname) == null)
+        twoName = 0, twoPre = 0, twoNum = 0;
+    if (document.getElementById(threename) == null)
+        threeName = 0, threePre = 0, threeNum = 0;
+    if (document.getElementById(fourname) == null)
+        fourName = 0, fourPre = 0, fourNum = 0;
+    if (document.getElementById(fivename) == null)
+        fiveName = 0, fivePre = 0, fiveNum = 0;
     $(document).ready(function () {
         function getUrlVal(para) {
             var search = location.search; //页面URL的查询部分字符串
@@ -104,83 +128,81 @@
         }
 
         var url = window.location.search;
-         passcode = getUrlVal("passcode");
-         creatorId = getUrlVal("creatorId");
-         lotteryId = getUrlVal("lotteryId");
+        passcode = getUrlVal("passcode");
+        creatorId = getUrlVal("creatorId");
+        lotteryId = getUrlVal("lotteryId");
     })
 
     $("button").click(function () {
         //传抽奖信息
-
         $.post("http://yb.upc.edu.cn:8084/lottery/createPrizes",
             {
                 Authorization: localStorage.getItem("testtoken"),
                 prizeName: "一等奖",
-                prizeIntro: document.getElementById('onename').value,
-                prizePercentage: document.getElementById('oneprobability').value,
-                prizeTotalNumber: document.getElementById('onenumber').value,
+                prizeIntro: oneName,
+                prizePercentage: onePer,
+                prizeTotalNumber: oneNum,
                 creatorId: creatorId,
                 lotteryId: lotteryId
             },
             function (data) {
-                console.log(data)
-                window.open("newsuccess.html?code=" + passcode + "&lotteryId="+ lotteryId+"")
+
+                window.open("newsuccess.html?code=" + passcode + "&lotteryId=" + lotteryId + "")
             }
         );
         $.post("http://yb.upc.edu.cn:8084/lottery/createPrizes",
             {
                 Authorization: localStorage.getItem("testtoken"),
                 prizeName: "二等奖",
-                prizeIntro: document.getElementById('twoname').value,
-                prizePercentage: document.getElementById('twoprobability').value,
-                prizeTotalNumber: document.getElementById('twonumber').value,
+                prizeIntro: twoName,
+                prizePercentage: twoPre,
+                prizeTotalNumber: twoNum,
                 creatorId: creatorId,
                 lotteryId: lotteryId
             },
             function (data) {
-                console.log(data)
+
             }
         );
         $.post("http://yb.upc.edu.cn:8084/lottery/createPrizes",
             {
                 Authorization: localStorage.getItem("testtoken"),
                 prizeName: "三等奖",
-                prizeIntro: document.getElementById('threename').value,
-                prizePercentage: document.getElementById('threeprobability').value,
-                prizeTotalNumber: document.getElementById('threenumber').value,
+                prizeIntro: threeName,
+                prizePercentage: threePre,
+                prizeTotalNumber: threeNum,
                 creatorId: creatorId,
                 lotteryId: lotteryId
             },
             function (data) {
-                console.log(data)
+
             }
         );
         $.post("http://yb.upc.edu.cn:8084/lottery/createPrizes",
             {
                 Authorization: localStorage.getItem("testtoken"),
                 prizeName: "四等奖",
-                prizeIntro: document.getElementById('fourname').value,
-                prizePercentage: document.getElementById('fourprobability').value,
-                prizeTotalNumber: document.getElementById('fournumber').value,
+                prizeIntro: fourName,
+                prizePercentage: fourPre,
+                prizeTotalNumber: fourNum,
                 creatorId: creatorId,
                 lotteryId: lotteryId
             },
             function (data) {
-                console.log(data)
+
             }
         );
         $.post("http://yb.upc.edu.cn:8084/lottery/createPrizes",
             {
                 Authorization: localStorage.getItem("testtoken"),
                 prizeName: "五等奖",
-                prizeIntro: document.getElementById('fivename').value,
-                prizePercentage: document.getElementById('fiveprobability').value,
-                prizeTotalNumber: document.getElementById('fivenumber').value,
+                prizeIntro: fiveName,
+                prizePercentage: fivePre,
+                prizeTotalNumber: fiveNum,
                 creatorId: creatorId,
                 lotteryId: lotteryId
             },
             function (data) {
-                console.log(data)
             }
         );
 

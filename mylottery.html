@@ -9,7 +9,6 @@
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
 </head>
-
 <body>
 <div class="container">
     <div class="row">
@@ -17,25 +16,28 @@
         <div class=" box col-lg-6 " style="background-color:#DCDCDC;"><br>
             <div align="center">
                 <p class="button3" id="lotteryname"></p>
-
-                <p id="lotteryintro"></p>
-                <p id="lotterytimebegin"></p>
-                <p id="lotterytimeend"></p></div>
+                <p class=" font-new">活动详情：</p>
+                <span id="lotteryintro"></span><br>
+                <span class=" font-new">开始时间：</span>
+                <span id="lotterytimebegin"></span><br>
+                <span class=" font-new">结束时间：</span>
+                <span id="lotterytimeend"></span></div>
             <div align="center">
                 <p class="font-new">我设置的抽奖清单</p>
-                <table width="90%" border="1px">
+                <table class="customers">
                     <tr>
-                        <th width="25%">奖项名称</th>
-                        <th width="25%">奖品名称</th>
-                        <th width="25%">数量</th>
-                        <th width="25%">中奖率‰</th>
+                        <th>奖项名称</th>
+                        <th>奖品名称</th>
+                        <th>数量</th>
+                        <th>中奖率‰</th>
                     </tr>
+
                 </table>
                 <div id="lotteryList"></div>
                 <br><br>
             </div>
             <div align="center"><p class="font-new">获奖情况清单</p>
-                <table width="90%" border="1px">
+                <table class="customers">
                     <tr>
                         <th width="25%">易班ID</th>
                         <th width="25%">姓名</th>
@@ -44,16 +46,26 @@
                     </tr>
                 </table>
                 <div id="prizeList"></div>
+                <br><br><br><br>
+                <button class="button2" id="share">分享给小伙伴</button>
+                <br><br><br><br>
             </div>
-            <br><br>
         </div>
         <br><br><br><br>
         <div class="col-lg-3 visible-xs-*"></div>
     </div>
+    <div class="theme-popover-mask">
+        <div class="theme-qrcode">
+            <img src="./images/取消.svg" width="25px" height="25px" id="close">
+            <div align="center">
+                <img id="pic" src="./images/礼物.svg" height="200px" width="200px">
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 <script>
-
+    var lotteryId = 0;
     $(document).ready(function () {
         function getUrlVal(para) {
             var search = location.search; //页面URL的查询部分字符串
@@ -83,7 +95,7 @@
             }
         }
 
-        var lotteryId = getUrlVal("id");
+        lotteryId = getUrlVal("id");
 
         Date.prototype.Format = function (fmt) {
             var o = {
@@ -97,7 +109,7 @@
             };
             if (/(y+)/.test(fmt))
                 fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-            for (var k in o){
+            for (var k in o) {
                 if (new RegExp("(" + k + ")").test(fmt)) {
                     fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
                 }
@@ -111,8 +123,6 @@
                 lotteryId: lotteryId
             },
             function (data) {
-                console.log("find")
-                console.log(data)
                 document.getElementById("lotteryname").innerHTML = data.object.lotteryname;
                 document.getElementById("lotteryintro").innerHTML = data.object.lotteryintro;
                 var lotteryTimeBegin = new Date(data.object.lotterytimebegin).Format("yyyy-MM-dd hh:mm");
@@ -124,13 +134,13 @@
 
         //绘制我设置的奖项
         function setLotteryList(item) {
-            var div = '<table width="90%" border="1px"><tr><td width="25%">'
+            var div = '<table class="customers"><tr class="alt"><td >'
                 + item.prizeName
-                + '</td><td width="25%">'
+                + '</td><td >'
                 + item.prizeIntro
-                + '</td><td width="25%">'
+                + '</td><td >'
                 + item.totalNumber
-                + '</td><td width="25%">'
+                + '</td><td >'
                 + item.prizePercentage
                 + '</td></tr></table>'
             return div
@@ -143,8 +153,7 @@
                 lotteryId: lotteryId,
             },
             function (data) {
-                console.log("my")
-                console.log(data)
+
                 var html3 = ''
                 for (var i = 0; i < data.object.length; i++) {
                     html3 += setLotteryList(data.object[i])
@@ -155,7 +164,7 @@
 
         //绘制获奖
         function setprizeList(item) {
-            var div = '<table width="90%" border="1px"><tr><td width="25%">'
+            var div = '<table class="customers"><tr class="alt"><td width="25%">'
                 + item.yibanid
                 + '</td><td width="25%">'
                 + item.yibanname
@@ -174,8 +183,7 @@
                 lotteryId: lotteryId,
             },
             function (data) {
-                console.log("bieren")
-                console.log(data)
+
                 var html4 = ''
                 for (var i = 0; i < data.object.length; i++) {
                     html4 += setprizeList(data.object[i])
@@ -183,8 +191,25 @@
                 document.getElementById("prizeList").innerHTML = html4
             }
         )
+    })
 
+    $("button").click(function () {
+        $('.theme-popover-mask').fadeIn(100);
+        $('.theme-qrcode').slideDown(200);
+        $("img#close").click(function () {
+            $(".theme-qrcode").fadeOut(200)
+            $(".theme-popover-mask").fadeOut(200)
+        })
+        $.get("http://yb.upc.edu.cn:8084/lottery/share",
+            {
+                Authorization: localStorage.getItem("testtoken"),
+                lotteryId: lotteryId,
+            },
+            function (data) {
 
+                document.getElementById("pic").src = data.object;
+            }
+        )
     })
 </script>
 </html>

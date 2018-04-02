@@ -26,8 +26,10 @@
             </div>
             <div class="theme-popover-mask">
                 <div class="theme-qrcode">
-                    <img src="取消.svg" width="25px" height="25px"  id="close">
-                    <div align="center"><img id="pic" src="礼物.svg" height="200px" width="200px" ></div>
+                    <img src="./images/取消.svg" width="25px" height="25px"  id="close">
+                    <div align="center">
+                        <img id="pic" src="./images/礼物.svg" height="200px" width="200px" >
+                    </div>
                 </div>
             </div>
         </div>
@@ -86,7 +88,7 @@
                     lotteryId: lotteryId,
                 },
                 function (data) {
-                    console.log(data.object)
+
                     document.getElementById("pic").src = data.object;
                 }
             )

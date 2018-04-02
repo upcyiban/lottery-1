@@ -8,7 +8,7 @@
     position: absolute;
     paddingleft: 0;
     z-index: 5;
-    background-image: url(箭头左.svg);
+    background-image: url(./images/箭头左.svg);
     background-repeat: no-repeat;
     background-position: 0px 0px;
     width: 35px;
@@ -202,7 +202,7 @@
     width: 100%;
     height: 100%;
     background: #000;
-    opacity: 0.8;
+    opacity: 0.9;
     filter: alpha(opacity=40);
     display: none;
 }
@@ -308,4 +308,32 @@
     margin: -2px -5px -5px;
     font: bold 14px/14px simsun;
     text-shadow: 0 1px 0 #ddd
+}
+.customers
+{
+    width:90%;
+    border-collapse:collapse;
+}
+.customers td, .customers th
+{
+    width: 25%;
+    font-size:1em;
+    border:1px solid #20B2AA;
+    padding:3px 7px 2px 7px;
+}
+.customers th
+{
+    font-size:1.1em;
+    text-align:center;
+    padding-top:5px;
+    padding-bottom:4px;
+    background-color:#5bc0de;
+    color:#ffffff;
+}
+.customers tr.alt td
+{
+    width: 25%;
+    color:#000000;
+    text-align:center ;
+    background-color:#EAF2D3;
 }

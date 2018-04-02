@@ -59,12 +59,11 @@
         $("button").click(function () {
             //转换开始时间类型
             var str = document.getElementsByName('lotterytime')[0].value;
-            console.log(str)
             var strArray = str.split('T');
             var strDate = strArray[0].split('-');
             var strTime = strArray[1].split(":");
             var date1 = strDate[0] + "-" + strDate[1] + "-" + strDate[2] + " " + strTime[0] + ":" + strTime[1] + ":00";
-            console.log(date1)
+
             //转换结束时间类型
             var str2 = document.getElementsByName('lotterytime')[1].value;
             var strArray2 = str.split('T');

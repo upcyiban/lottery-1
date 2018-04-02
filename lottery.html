@@ -113,7 +113,7 @@
                     lotteryId: getid
                 },
                 function (data) {
-                    console.log(document.getElementById("lotteryresult"))
+
                     message = data.msg
                     if (data.code == -1) {
                         document.getElementById("lotteryresult").innerHTML = message
