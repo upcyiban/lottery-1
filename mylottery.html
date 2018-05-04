@@ -16,6 +16,8 @@
         <div class=" box col-lg-6 " style="background-color:#DCDCDC;"><br>
             <div align="center">
                 <p class="button3" id="lotteryname"></p>
+                <span class=" font-new">活动邀请码：</span>
+                <span id="lotterypasscode"></span><br>
                 <p class=" font-new">活动详情：</p>
                 <span id="lotteryintro"></span><br>
                 <span class=" font-new">开始时间：</span>
@@ -125,6 +127,7 @@
             function (data) {
                 document.getElementById("lotteryname").innerHTML = data.object.lotteryname;
                 document.getElementById("lotteryintro").innerHTML = data.object.lotteryintro;
+                document.getElementById("lotterypasscode").innerHTML = data.object.passcode;
                 var lotteryTimeBegin = new Date(data.object.lotterytimebegin).Format("yyyy-MM-dd hh:mm");
                 var lotteryTimeEnd = new Date(data.object.lotterytimeend).Format("yyyy-MM-dd hh:mm");
                 document.getElementById("lotterytimebegin").innerHTML = lotteryTimeBegin;

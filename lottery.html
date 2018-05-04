@@ -30,7 +30,7 @@
                 <div align="center">
                     <input class="input2" type="number" id="passcode"/><br><br><br><br>
                     <button class="button4 " id="yes">确定</button>
-                    <button class="button5" onclick="window.open('begin.html')">返回</button>
+                    <button class="button5" onclick="window.open('index.html')">返回</button>
                 </div>
             </div>
             <!-- 抽奖结果 -->
@@ -42,7 +42,7 @@
                     <br>
                     <div>
                         <p class="font" id="lotteryresult"></p><br><br>
-                        <button class="button6" onclick="window.open('begin.html')">返回主页</button>
+                        <button class="button6" onclick="window.open('index.html')">返回主页</button>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,35 @@
 <script>
     var getid = window.location.href.split('=')[1];
     $(document).ready(function () {
-        //初始页面展示
+        // 跳转授权
+        var APPID = "63b7b59e624425d0";
+        var CALLBACK = "http://f.yiban.cn/iapp133683";
+        var url = window.location.href;
+// lottery     var vq = "0ce43a5c462ae07be4bf11527530e352fe38ee17abe082cf01397de62e38a06e73993ca948be9f04fc392f374399c545e0b1f532f9248705929846f3a65f10464b58b6a2841570f0ee9a8494455d0c9dfa2b37e50a787b8a5470dcfb3e59cc42b6df570b9352aa1196de9f5588add55f2fd079ffd3432dc91b522453a2719374b7934a5c2c102d0e758920ad46e94853d7347315ab5cc2c6e9fdd5f5210f96b53e36298baac038d42d9a6134c544e6e8f4b71f990caf14133396316007378c7deeab28d39312cbf44c9943570c1951cf719d7b8acc8cebcc9ae5a6a19b6372128716f6cbbe7b59a64d7fc103f6dd79db"
+// 请销假        var vq = "c21f263641f5b94c0b20f9ec5d2ad13f5662aadf66899fbcc8eb82b1541e87bdb107f75ad2866ac7fbe01e756120b81e7ced4f9cc43d5a2dff1638bea54e97045febbeeb4acaacf9ba7b81ce69a0afe548b9b44daca8bbc24cb76e672e93b8af0bcb3e7b28985f58f1730ac4eff0928dde06e7df17d89eecc9c17d9f9d24bc8d87b56b877c35bc0d8efa901e5ac330388c50db352e4577678b92b4af2e5918a1defbae73ad711c907a8b7cf2343cfb4adad311336e1ede81e40cec8374e62de9cd90cc9335fd0367e863e0e6b241fc9bf5f70392cd013b0387f3d4e23b402651"
+        var vq = window.location.href.split('=')[1];
+        if (vq == null)
+            window.location.href = "https://oauth.yiban.cn/code/html?client_id= " + APPID + " &redirect_uri=  " + CALLBACK + " &state=5050";
+        else
+            vq = window.location.href.split('=')[1].split('&')[0];
+
+        // 获取token
+        $.post("http://yb.upc.edu.cn:8084/auth",
+            {
+                appName: "石大请销假",
+                vq: vq,
+                device: "default"
+            },
+            function (data) {
+                authtoken = data.token,
+                    localStorage.setItem("testtoken", authtoken)
+                getlottery();
+            });
+    });
+    var token = localStorage.getItem("testtoken")
+
+
+    //初始页面展示
         $('.theme-popover-mask').fadeIn(100);
         $('.theme-popover').slideDown(200);
         //展示抽奖名称
@@ -127,9 +155,6 @@
                 }
             )
         }
-    })
-
-
 </script>
 </html>
 
