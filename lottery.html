@@ -20,7 +20,7 @@
                 <img src="./images/timg.png" width="200px" ; height="200px" ; style="position:center; " id="img"/> <br><br>
                 <button id="angle" class="button2 theme-benginlottery" onclick="doLottery()">抽奖</button>
                 <br><br>
-                <button class="button2">分享给小伙伴</button><br><br><br><br>
+                <!--<button class="button2">分享给小伙伴</button><br><br><br><br>-->
             </div>
             <!-- 初始页面展示 -->
             <div class="theme-popover">
@@ -55,36 +55,8 @@
 </div>
 </body>
 <script>
-
+    var getid = window.location.href.split('=')[1];
     $(document).ready(function () {
-        var getid = window.location.href.split('=')[1];
-        console.log("id"+getid);
-/*
-        var token = localStorage.getItem("testtoken");
-*/
-       // console.log(token)
-        // 跳转授权
-        var APPID = "63b7b59e624425d0";
-        var CALLBACK = "http://f.yiban.cn/iapp133683";
-//请销假 var vq = "c21f263641f5b94c0b20f9ec5d2ad13f5662aadf66899fbcc8eb82b1541e87bdb107f75ad2866ac7fbe01e756120b81e7ced4f9cc43d5a2dff1638bea54e97045febbeeb4acaacf9ba7b81ce69a0afe548b9b44daca8bbc24cb76e672e93b8af0bcb3e7b28985f58f1730ac4eff0928dde06e7df17d89eecc9c17d9f9d24bc8d87b56b877c35bc0d8efa901e5ac330388c50db352e4577678b92b4af2e5918a1defbae73ad711c907a8b7cf2343cfb4adad311336e1ede81e40cec8374e62de9cd90cc9335fd0367e863e0e6b241fc9bf5f70392cd013b0387f3d4e23b402651"
-        var vq = window.location.href.split('=')[1];
-        if (vq == null)
-            window.location.href = "https://oauth.yiban.cn/code/html?client_id= " + APPID + " &redirect_uri=  " + CALLBACK + " &state=" +getid+" ";
-        else
-            vq = window.location.href.split('=')[1].split('&')[0];
-        // 获取token
-        $.post("http://yb.upc.edu.cn:8084/auth",
-            {
-                appName: "石大请销假",
-                vq: vq,
-                device: "default"
-            },
-            function (data) {
-                authtoken = data.token,
-                    localStorage.setItem("testtoken", authtoken)
-            });
-
-
         //初始页面展示
         $('.theme-popover-mask').fadeIn(100);
         $('.theme-popover').slideDown(200);
@@ -123,31 +95,30 @@
                     }
                 })
         })
-        //抽奖按钮弹出框展示奖品
-        function doLottery() {
-            $('.theme-popover-mask').fadeIn(100);
-            $('.theme-popover2').slideDown(200);
-
-            $.get("http://yb.upc.edu.cn:8084/lottery/dolottery",
-                {
-                    Authorization: localStorage.getItem("testtoken"),
-                    lotteryId: getid
-                },
-                function (data) {
-                    message = data.msg
-                    if (data.code == -1) {
-                        document.getElementById("lotteryresult").innerHTML = message
-                    }
-                    else if (data.code == 0)
-                        document.getElementById("lotteryresult").innerHTML = "抽奖出错，请稍候再来~"
-                    else if (data.code == -2)
-                        document.getElementById("lotteryresult").innerHTML = message
-                    else
-                        document.getElementById("lotteryresult").innerHTML = "恭喜你获得:<br>" + data.object.prizeName
-                }
-            )
-        }
     });
+    //抽奖按钮弹出框展示奖品
+    function doLottery() {
+        $('.theme-popover-mask').fadeIn(100);
+        $('.theme-popover2').slideDown(200);
+        $.get("http://yb.upc.edu.cn:8084/lottery/dolottery",
+            {
+                Authorization: localStorage.getItem("testtoken"),
+                lotteryId: getid
+            },
+            function (data) {
+                message = data.msg
+                if (data.code == -1) {
+                    document.getElementById("lotteryresult").innerHTML = message
+                }
+                else if (data.code == 0)
+                    document.getElementById("lotteryresult").innerHTML = "抽奖出错，请稍候再来~"
+                else if (data.code == -2)
+                    document.getElementById("lotteryresult").innerHTML = message
+                else
+                    document.getElementById("lotteryresult").innerHTML = "恭喜你获得:<br>" + data.object.prizeName
+            }
+        )
+    }
 </script>
 </html>
 

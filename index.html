@@ -51,8 +51,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        authorization();
-        function authorization() {
+
                 // 跳转授权
                 var APPID = "63b7b59e624425d0";
                 var CALLBACK = "http://f.yiban.cn/iapp133683";
@@ -74,7 +73,7 @@
                             localStorage.setItem("testtoken", authtoken)
                         getlottery();
                     });
-            }
+            var token=localStorage.getItem('testtoken');
 
 
     //绘制单个div
@@ -125,7 +124,6 @@
                 passcode: document.getElementById('findnumber').value
             },
             function (data) {
-                console.log(token)
                 if (data.length == 0) {
                     document.getElementById("no").innerHTML = "没有该抽奖，请检查你的输入"
                 }

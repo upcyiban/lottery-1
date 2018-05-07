@@ -146,8 +146,7 @@
                 lotteryId: lotteryId
             },
             function (data) {
-
-                window.open("newsuccess.html?code=" + passcode + "&lotteryId=" + lotteryId + "")
+                window.open("newsuccess.html?code=" + passcode + "&lotteryId=" + lotteryId + "",'_self')
             }
         );
         $.post("http://yb.upc.edu.cn:8084/lottery/createPrizes",
