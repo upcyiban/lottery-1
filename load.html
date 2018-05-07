@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>易抽奖-加载</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+<p>loading...</p>
+</body>
+<script>
+    $(document).ready(function () {
+    var url = window.location.href;
+    console.log(url);
+    vq = window.location.href.split('=')[1].split('&')[0];
+    console.log(vq);
+        var token=localStorage.getItem("testtoken");
+    if(typeof (token)==="undefined"){
+        // 获取token
+        $.post("http://yb.upc.edu.cn:8084/auth",
+            {
+                appName: "石大请销假",
+                vq: vq,
+                device: "default"
+            },
+            function (data) {
+                authtoken = data.token,
+                    localStorage.setItem("testtoken", authtoken)
+            });
+    }
+     // var state=url.split('&')[1].split('&')[1].split('=')[1];
+     // console.log(state);
+    // if(state==5050) {
+    //     window.open('index.html')
+    // }else if(state>0)
+    // {
+    //     window.open('lottery.html')
+    // }
+
+    })
+    window.open('index.html');
+</script>
+</html>
