@@ -88,16 +88,46 @@
     var oneName = '', twoName = '', threeName = '', fourName = '', fiveName = '';
     var onePer = 0, twoPre = 0, threePre = 0, fourPre = 0, fivePre = 0;
     var oneNum = 0, twoNum = 0, threeNum = 0, fourNum = 0, fiveNum = 0;
-    if (document.getElementById(onename) == null)
+    if (document.getElementById('onename').value == "")
+    {
         oneName = 0, onePer = 0, oneNum = 0;
-    if (document.getElementById(twoname) == null)
+    }
+    else {
+        oneName=document.getElementById('onename').value;
+        oneNum=document.getElementById('onenumber').value;
+        onePer=document.getElementById('oneprobability').value;
+    }
+    if (document.getElementById('twoname').value == ""){
         twoName = 0, twoPre = 0, twoNum = 0;
-    if (document.getElementById(threename) == null)
+    }
+        else {
+        twoName=document.getElementById('twoname').value;
+        twoNum=document.getElementById('twonumber').value;
+        twoPer=document.getElementById('twoprobability').value;
+    }
+    if (document.getElementById('threename').value == ""){
         threeName = 0, threePre = 0, threeNum = 0;
-    if (document.getElementById(fourname) == null)
+    }
+        else{
+        threeName=document.getElementById('threename').value;
+        threeNum=document.getElementById('threenumber').value;
+        threePer=document.getElementById('threeprobability').value;
+    }
+    if (document.getElementById('fourname').value == ""){
         fourName = 0, fourPre = 0, fourNum = 0;
-    if (document.getElementById(fivename) == null)
-        fiveName = 0, fivePre = 0, fiveNum = 0;
+    }
+        else{
+        fourName=document.getElementById('fourname').value;
+        fourNum=document.getElementById('fournumber').value;
+        fourPer=document.getElementById('fourprobability').value;
+    }
+    if (document.getElementById('fivename').value == ""){
+        fiveName = 0, fivePre = 0, fiveNum = 0;}
+        else {
+        fiveName=document.getElementById('fivename').value;
+        fiveNum=document.getElementById('fivenumber').value;
+        fivePer=document.getElementById('fiveprobability').value;
+    }
     $(document).ready(function () {
         function getUrlVal(para) {
             var search = location.search; //页面URL的查询部分字符串
